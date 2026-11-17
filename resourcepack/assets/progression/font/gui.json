@@ -1,0 +1,385 @@
+{
+ "providers": [
+  {
+   "type": "space",
+   "advances": {
+    "\uf801": -1,
+    "\uf802": -2,
+    "\uf803": -4,
+    "\uf804": -8,
+    "\uf805": -16,
+    "\uf806": -32,
+    "\uf807": -64,
+    "\uf808": -128,
+    "\uf811": 1,
+    "\uf812": 2,
+    "\uf813": 4,
+    "\uf814": 8,
+    "\uf815": 16,
+    "\uf816": 32,
+    "\uf817": 64,
+    "\uf818": 128
+   }
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/perks.png",
+   "ascent": 13,
+   "height": 222,
+   "chars": [
+    "\ue000"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/altar.png",
+   "ascent": 13,
+   "height": 222,
+   "chars": [
+    "\ue001"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/respec.png",
+   "ascent": 13,
+   "height": 168,
+   "chars": [
+    "\ue002"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -4,
+   "height": 18,
+   "chars": [
+    "\ue100"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -22,
+   "height": 18,
+   "chars": [
+    "\ue101"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -40,
+   "height": 18,
+   "chars": [
+    "\ue102"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -58,
+   "height": 18,
+   "chars": [
+    "\ue103"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -76,
+   "height": 18,
+   "chars": [
+    "\ue104"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_0.png",
+   "ascent": -94,
+   "height": 18,
+   "chars": [
+    "\ue105"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -4,
+   "height": 18,
+   "chars": [
+    "\ue108"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -22,
+   "height": 18,
+   "chars": [
+    "\ue109"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -40,
+   "height": 18,
+   "chars": [
+    "\ue10a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -58,
+   "height": 18,
+   "chars": [
+    "\ue10b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -76,
+   "height": 18,
+   "chars": [
+    "\ue10c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_1.png",
+   "ascent": -94,
+   "height": 18,
+   "chars": [
+    "\ue10d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -4,
+   "height": 18,
+   "chars": [
+    "\ue110"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -22,
+   "height": 18,
+   "chars": [
+    "\ue111"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -40,
+   "height": 18,
+   "chars": [
+    "\ue112"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -58,
+   "height": 18,
+   "chars": [
+    "\ue113"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -76,
+   "height": 18,
+   "chars": [
+    "\ue114"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_2.png",
+   "ascent": -94,
+   "height": 18,
+   "chars": [
+    "\ue115"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -4,
+   "height": 18,
+   "chars": [
+    "\ue118"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -22,
+   "height": 18,
+   "chars": [
+    "\ue119"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -40,
+   "height": 18,
+   "chars": [
+    "\ue11a"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -58,
+   "height": 18,
+   "chars": [
+    "\ue11b"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -76,
+   "height": 18,
+   "chars": [
+    "\ue11c"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_3.png",
+   "ascent": -94,
+   "height": 18,
+   "chars": [
+    "\ue11d"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -4,
+   "height": 18,
+   "chars": [
+    "\ue120"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -22,
+   "height": 18,
+   "chars": [
+    "\ue121"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -40,
+   "height": 18,
+   "chars": [
+    "\ue122"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -58,
+   "height": 18,
+   "chars": [
+    "\ue123"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -76,
+   "height": 18,
+   "chars": [
+    "\ue124"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/frame_4.png",
+   "ascent": -94,
+   "height": 18,
+   "chars": [
+    "\ue125"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_1.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue200"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_2.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue201"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_4.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue202"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_8.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue203"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_16.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue204"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_32.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue205"
+   ]
+  },
+  {
+   "type": "bitmap",
+   "file": "progression:font/bar_64.png",
+   "ascent": 5,
+   "height": 5,
+   "chars": [
+    "\ue206"
+   ]
+  }
+ ]
+}

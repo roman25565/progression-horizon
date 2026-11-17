@@ -1,0 +1,692 @@
+# Progression for Horizon 2.6: the server's settings.
+# This file is created in config/progression/ on the first start; edit it there and restart
+# (or run /progressadmin reload).
+#
+# How it works: players earn progression experience only from advancements, each one once (vanilla,
+# the datapacks' and the mods', e.g. finding a new structure). Nothing repeatable gives any, so
+# there is nothing to farm. Experience raises the progression level, which is
+# kept on the server and never lost on death. Each level gives perk points (ОП). Perks cost
+# points and open at a level of their own. No perk gives a beacon or potion effect.
+
+[settings]
+# The layout of this file. An older file is kept aside as progression-v<N>.toml and replaced.
+version = 8
+max_level = 50
+# Experience from level n to n + 1: xp_base + xp_step * n.
+xp_base = 200
+xp_step = 40
+# Points for each level, and a bonus every few levels.
+points_per_level = 6
+bonus_every = 5
+bonus_points = 5
+# Vanilla levels a respec costs for every perk point it gives back.
+respec_levels_per_point = 1
+# Melee damage one player deals to another is multiplied by this (1.0 = vanilla).
+pvp_damage_multiplier = 1.5
+# The swap-hands key (F) dashes forward for players who bought a dash, Shift+F dashes up.
+swap_hands_dash = true
+# Dashes on the Horizon client: a push in blocks a tick (forward: about 7 blocks at 1.0).
+dash_forward_speed = 1.0
+dash_forward_lift = 0.25
+dash_up_speed = 1.3
+# Spirit: how far from the body (blocks), and how long after damage it can't start (seconds).
+spirit_radius = 32.0
+spirit_after_damage_seconds = 10
+# Advancements: weight (advancements.toml: task 1, goal 3, challenge 5) x this = experience.
+default_advancement_points = 1
+advancement_xp_per_point = 120
+# The enchanting altar: altar_block standing on altar_base. A right click opens the altar menu.
+altar_block = "minecraft:enchanting_table"
+altar_base = "minecraft:amethyst_block"
+# The anvil never asks for more levels than this (vanilla refuses at 40).
+anvil_max_cost = 39
+# Whether a chunk anchor keeps working while its owner is offline.
+anchor_offline = false
+# The resource pack with the menus. The mod serves it itself on pack_port (0 = don't) and tells
+# clients to load http://<pack_host>:<pack_port>/progression.zip : put the server's public
+# address in pack_host and open the port. Or host the zip elsewhere and set pack_url.
+pack_port = 25580
+pack_host = "127.0.0.1"
+pack_url = ""
+pack_required = false
+
+# Advancements whose weight isn't the usual one for their frame. They win over advancements.toml.
+[advancement_points]
+"minecraft:end/kill_dragon" = 25
+"progression:boss/kill_wither" = 20
+"progression:toolkit/dry_lava" = 3
+
+# Perks. branch: survival, pvp, pve, build, redstone, cart, horse or elytra (a column of the
+# map, a row of the menu, up to 8 perks). costs[i] points buy tier i + 1 once the player's progression level is
+# levels[i]. A perk sets attribute modifiers (per_level x tier, with the vanilla operation), and
+# the ids the mod knows do more: wisdom, hunter, trophies, scholar (amount = percent a tier),
+# dash_forward, dash_up, spirit, anchor, lab (keys), void_walker, last_stand (cooldown_seconds,
+# halved by each tier past the first), alchemist, clear_mind, timber (amount = logs a tier),
+# pickaxe3, shovel3, altar_tools, altar_armor, altar_weapons, hard_head, trowel, mason, draft
+# (amount = blocks one fill places at II, eight times as many at III), relay (amount = targets a
+# transmitter holds at I, four times more a tier; any distance in the same world), cart_speed,
+# cart_drive, cart_return, horse_speed (amount = percent a tier), horse_descent, horse_terrain,
+# horse_call, horse_leaves, horse_bags, elytra_wear and elytra_rockets (amount = percent chance
+# a tier), elytra_wall, elytra_glide. parent: the perk the map draws it after.
+
+[[perk]]
+id = "health"
+branch = "survival"
+name = "Здоров'я"
+icon = "minecraft:golden_apple"
+about = "Більше здоров'я."
+costs = [2, 2, 3, 3, 4]
+levels = [1, 8, 16, 26, 36]
+attribute = "minecraft:max_health"
+per_level = 4.0
+
+[[perk]]
+id = "fall"
+branch = "survival"
+name = "Котяче приземлення"
+icon = "minecraft:feather"
+about = "Падіння з висоти менш небезпечне."
+costs = [2, 2, 3]
+levels = [3, 12, 22]
+attribute = "minecraft:safe_fall_distance"
+per_level = 3.0
+[[perk.also]]
+attribute = "minecraft:fall_damage_multiplier"
+per_level = -0.25
+
+[[perk]]
+id = "swimming"
+branch = "survival"
+name = "Дитя води"
+icon = "minecraft:heart_of_the_sea"
+about = "Вода не заважає: швидше плаваєш і копаєш під водою, довше тримаєш повітря."
+costs = [3, 4]
+levels = [5, 18]
+attribute = "minecraft:water_movement_efficiency"
+per_level = 0.5
+[[perk.also]]
+attribute = "minecraft:submerged_mining_speed"
+per_level = 0.5
+[[perk.also]]
+attribute = "minecraft:oxygen_bonus"
+per_level = 10.0
+
+[[perk]]
+id = "wisdom"
+branch = "survival"
+name = "Мудрість"
+icon = "minecraft:enchanted_book"
+about = "Більше досвіду прогресії з досягнень."
+costs = [2, 3, 4]
+levels = [2, 14, 28]
+amount = 10.0
+
+[[perk]]
+id = "clear_mind"
+branch = "survival"
+name = "Ясний розум"
+icon = "minecraft:milk_bucket"
+about = "Шкідливі ефекти одразу спадають."
+costs = [3, 3, 4]
+levels = [10, 20, 32]
+
+[[perk]]
+id = "void_walker"
+branch = "survival"
+name = "Хода над безоднею"
+icon = "minecraft:ender_eye"
+about = "Падіння в порожнечу не вбиває: тебе повертає на останню тверду землю."
+costs = [4, 4]
+levels = [15, 30]
+cooldown_seconds = 600
+
+[[perk]]
+id = "alchemist"
+branch = "survival"
+name = "Алхімік"
+icon = "minecraft:brewing_stand"
+about = "Корисні ефекти від зілль, їжі й маяків діють довше."
+costs = [3, 4, 5]
+levels = [12, 24, 40]
+
+[[perk]]
+id = "hard_head"
+branch = "survival"
+name = "Міцна голова"
+icon = "minecraft:iron_helmet"
+about = "Тебе не ранять блоки, що падають (ковадла, сталактити, пісок, гравій), сталагміти, задушення в стіні й тиснява мобів."
+costs = [3]
+levels = [8]
+
+[[perk]]
+id = "toughness"
+branch = "pvp"
+name = "Загартування"
+icon = "minecraft:netherite_chestplate"
+about = "Міцність броні: менше шкоди саме від сильних ударів (сокири, боси, вибухи). Додається до твоєї броні."
+costs = [2, 3, 3]
+levels = [4, 14, 26]
+attribute = "minecraft:armor_toughness"
+per_level = 2.0
+
+[[perk]]
+id = "steadfast"
+branch = "pvp"
+name = "Непохитність"
+icon = "minecraft:anvil"
+about = "Тебе менше відкидає від ударів і вибухів."
+costs = [2, 3, 3]
+levels = [6, 16, 28]
+attribute = "minecraft:knockback_resistance"
+per_level = 0.2
+[[perk.also]]
+attribute = "minecraft:explosion_knockback_resistance"
+per_level = 0.33
+
+[[perk]]
+id = "lunge"
+branch = "pvp"
+name = "Випад"
+icon = "minecraft:trident"
+about = "Дістаєш ворогів ударом здалека."
+costs = [3, 4]
+levels = [8, 22]
+attribute = "minecraft:entity_interaction_range"
+per_level = 1.0
+
+[[perk]]
+id = "dash_forward"
+branch = "pvp"
+name = "Ривок вперед"
+icon = "minecraft:wind_charge"
+about = "Кидок на 7 блоків уперед (R або F)."
+costs = [4]
+levels = [10]
+cooldown_seconds = 5
+
+[[perk]]
+id = "dash_up"
+branch = "pvp"
+name = "Ривок вгору"
+icon = "minecraft:breeze_rod"
+about = "Стрибок високо вгору (V або Shift+F)."
+costs = [4]
+levels = [14]
+cooldown_seconds = 5
+parent = "dash_forward"
+
+[[perk]]
+id = "last_stand"
+branch = "pvp"
+name = "Остання стійка"
+icon = "minecraft:totem_of_undying"
+about = "Смертельний удар не вбиває: лишаєшся з половиною серця і щитом поглинання."
+costs = [5, 5]
+levels = [20, 38]
+cooldown_seconds = 600
+
+[[perk]]
+id = "altar_weapons"
+branch = "pvp"
+name = "Вівтар зброї"
+icon = "minecraft:netherite_sword"
+about = "На вівтарі (стіл зачарувань на аметистовому блоці) купуєш книги для зброї, вищі за ванільний максимум."
+costs = [3, 4, 5]
+levels = [15, 27, 42]
+
+[[perk]]
+id = "hunter"
+branch = "pve"
+name = "Мисливець"
+icon = "minecraft:bow"
+about = "Сильніше б'єш мобів, мечем і стрілами."
+costs = [2, 3, 4]
+levels = [3, 15, 30]
+amount = 25.0
+
+[[perk]]
+id = "trophies"
+branch = "pve"
+name = "Трофеї"
+icon = "minecraft:rotten_flesh"
+about = "Шанс подвоїти здобич з мобів."
+costs = [2, 3, 4]
+levels = [8, 20, 34]
+amount = 10.0
+
+[[perk]]
+id = "scholar"
+branch = "pve"
+name = "Учений"
+icon = "minecraft:experience_bottle"
+about = "Більше звичайного досвіду (зелених кульок) для зачарувань."
+costs = [2, 3, 3]
+levels = [5, 16, 30]
+amount = 75.0
+
+[[perk]]
+id = "lava_vision"
+branch = "pve"
+name = "Бачення в лаві"
+icon = "minecraft:magma_cream"
+about = "Під лавою видно далеко (лише клієнт Horizon)."
+costs = [4]
+levels = [25]
+client = "lava_vision"
+
+[[perk]]
+id = "altar_armor"
+branch = "pve"
+name = "Вівтар броні"
+icon = "minecraft:netherite_helmet"
+about = "На вівтарі купуєш книги для броні, вищі за ванільний максимум (захист лише +1)."
+costs = [3, 4, 5]
+levels = [15, 27, 42]
+
+[[perk]]
+id = "reach"
+branch = "build"
+name = "Довгі руки"
+icon = "minecraft:scaffolding"
+about = "Ставиш і ламаєш блоки далі."
+costs = [2, 2, 3]
+levels = [2, 10, 22]
+attribute = "minecraft:block_interaction_range"
+per_level = 1.0
+
+[[perk]]
+id = "step"
+branch = "build"
+name = "Легкий крок"
+icon = "minecraft:oak_stairs"
+about = "Заходиш на блоки без стрибка, швидше крадешся, мед, пісок душ і павутина менше сповільнюють."
+costs = [2, 3, 3]
+levels = [1, 8, 16]
+attribute = "minecraft:step_height"
+per_level = 0.35
+[[perk.also]]
+attribute = "minecraft:sneaking_speed"
+per_level = 0.24
+[[perk.also]]
+attribute = "minecraft:movement_efficiency"
+per_level = 0.33
+
+[[perk]]
+id = "shovel3"
+branch = "build"
+name = "Лопата 3×3"
+icon = "minecraft:diamond_shovel"
+about = "Лопата Tool-Kit, що копає 3×3."
+costs = [4]
+levels = [10]
+item_levels = 15
+
+[[perk]]
+id = "pickaxe3"
+branch = "build"
+name = "Кірка 3×3"
+icon = "minecraft:diamond_pickaxe"
+about = "Кірка Tool-Kit, що ламає 3×3."
+costs = [6]
+levels = [20]
+item_levels = 25
+parent = "shovel3"
+
+[[perk]]
+id = "timber"
+branch = "build"
+name = "Лісоруб"
+icon = "minecraft:diamond_axe"
+about = "Зрубав колоду сокирою, і падає все дерево. З Shift рубаєш як звичайно."
+costs = [3, 4]
+levels = [6, 18]
+amount = 64.0
+
+[[perk]]
+id = "trowel"
+branch = "build"
+name = "Кельма"
+icon = "minecraft:brick"
+about = "Shift + ставиш блок: замість нього стає випадковий блок того ж виду з хотбару. Строкаті стіни, дороги й дахи без ручного перемішування."
+costs = [3]
+levels = [6]
+
+[[perk]]
+id = "mason"
+branch = "build"
+name = "Каменяр"
+icon = "minecraft:stonecutter"
+about = "Shift + ПКМ порожньою рукою по каменю міняє його на наступний варіант (цегла, полірований, різьблений...)."
+costs = [3]
+levels = [10]
+
+[[perk]]
+id = "altar_tools"
+branch = "build"
+name = "Вівтар інструментів"
+icon = "minecraft:netherite_pickaxe"
+about = "На вівтарі купуєш книги для інструментів, вищі за ванільний максимум."
+costs = [3, 4, 5]
+levels = [15, 27, 42]
+
+[[perk]]
+id = "lab"
+branch = "redstone"
+name = "Лабораторія"
+icon = "minecraft:target"
+about = "Зона для тестів механізмів (клавіша L): вибухи в ній не ламають блоки, спостерігачів можна заморозити."
+costs = [2, 3, 4]
+levels = [5, 15, 30]
+amount = 8.0
+
+[[perk]]
+id = "spirit"
+branch = "redstone"
+name = "Дух"
+icon = "minecraft:phantom_membrane"
+about = "Виходиш із тіла глядачем на 32 блоки навколо, щоб роздивитись механізм зсередини (B)."
+costs = [5]
+levels = [12]
+
+[[perk]]
+id = "anchor"
+branch = "redstone"
+name = "Якір чанків"
+icon = "minecraft:lodestone"
+about = "Чанки навколо тебе працюють, поки ти на сервері (H)."
+costs = [3, 4, 5]
+levels = [10, 24, 40]
+amount = 1.0
+
+[[perk]]
+id = "draft"
+branch = "redstone"
+name = "Кресляр"
+icon = "minecraft:stick"
+about = "Розмітка частинками, яку бачиш лише ти.¶Shift + ПКМ палицею по блоку: точка A, потім B. Точка стає там, куди ліг би блок.¶ПКМ палицею: меню (лінія, прямокутник, коло, заливка блоками з лівої руки)."
+costs = [2, 3, 4]
+levels = [8, 20, 34]
+amount = 256.0
+
+[[perk]]
+id = "relay"
+branch = "redstone"
+name = "Дистанційний сигнал"
+icon = "minecraft:redstone_lamp"
+about = "Передавач віддає свій редстоун-сигнал блокам за координатами, на будь-яку відстань у тому самому світі.¶Перший передавач дається одразу. Крафт: перлина Енду зверху, лампа редстоуну в центрі, редстоун ліворуч, праворуч і знизу.¶ПКМ по поставленому передавачу: меню цілей."
+costs = [2, 3, 4]
+levels = [6, 18, 30]
+amount = 8.0
+
+# The travel branches. Fastest: the minecart (each tier one more vanilla track step a tick),
+# then the horse, then the elytra (no speed of its own: vanilla's rockets are fast enough).
+
+[[perk]]
+id = "cart_speed"
+branch = "cart"
+name = "Швидкі колії"
+icon = "minecraft:powered_rail"
+about = "Вагонетка з тобою їде швидше і не злітає на поворотах."
+costs = [2, 3, 4, 5]
+levels = [3, 12, 24, 36]
+
+[[perk]]
+id = "cart_drive"
+branch = "cart"
+name = "Розгін"
+icon = "minecraft:furnace_minecart"
+about = "W розганяє вагонетку на будь-яких рейках, навіть з місця."
+costs = [3]
+levels = [8]
+
+[[perk]]
+id = "cart_return"
+branch = "cart"
+name = "Кондуктор"
+icon = "minecraft:minecart"
+about = "Вийшов з вагонетки, і вона повертається тобі в інвентар."
+costs = [2]
+levels = [5]
+
+[[perk]]
+id = "horse_speed"
+branch = "horse"
+name = "Скакун"
+icon = "minecraft:golden_carrot"
+about = "Кінь під тобою біжить швидше."
+costs = [2, 3, 3, 4]
+levels = [3, 12, 22, 34]
+amount = 25.0
+
+[[perk]]
+id = "horse_descent"
+branch = "horse"
+name = "Впевнений спуск"
+icon = "minecraft:hay_block"
+about = "Кінь липне до землі: зі схилів і уступів падає миттєво, не втрачаючи ходу, а стрибає так само високо. Працює з клієнтом Horizon і модом serverkeys."
+costs = [2, 3]
+levels = [6, 18]
+client = "horse_descent"
+
+[[perk]]
+id = "horse_terrain"
+branch = "horse"
+name = "Прохідливість"
+icon = "minecraft:leather_horse_armor"
+about = "Кінь переступає вищі перешкоди (з клієнтом Horizon і модом serverkeys)."
+costs = [2, 3]
+levels = [8, 20]
+client = "horse_terrain"
+
+[[perk]]
+id = "horse_leaves"
+branch = "horse"
+name = "Крізь хащі"
+icon = "minecraft:shears"
+about = "Листя перед конем і вершником зникає, тож ліс не зупиняє (без дропу)."
+costs = [2]
+levels = [12]
+
+[[perk]]
+id = "horse_call"
+branch = "horse"
+name = "Поклик"
+icon = "minecraft:goat_horn"
+about = "Клавіша J (або /progress horse) кличе коня, на якому ти їхав останнім, навіть з далеких чанків того самого світу."
+costs = [3]
+levels = [16]
+
+[[perk]]
+id = "horse_bags"
+branch = "horse"
+name = "Сідельні сумки"
+icon = "minecraft:chest"
+about = "Клавіша N (або /progress bags) біля коня відкриває його сумки. Речі в них не пропадають, навіть після скидання перків."
+costs = [4, 5]
+levels = [32, 42]
+
+[[perk]]
+id = "elytra_wear"
+branch = "elytra"
+name = "Легкі крила"
+icon = "minecraft:phantom_membrane"
+about = "Елітри зношуються рідше."
+costs = [2, 3]
+levels = [5, 16]
+amount = 40.0
+
+[[perk]]
+id = "elytra_rockets"
+branch = "elytra"
+name = "Ракетник"
+icon = "minecraft:firework_rocket"
+about = "Феєрверк у польоті іноді повертається."
+costs = [2, 3]
+levels = [8, 20]
+amount = 25.0
+
+[[perk]]
+id = "elytra_wall"
+branch = "elytra"
+name = "М'яка посадка"
+icon = "minecraft:slime_block"
+about = "Удар об стіну в польоті не ранить."
+costs = [3]
+levels = [10]
+
+[[perk]]
+id = "elytra_glide"
+branch = "elytra"
+name = "Планер"
+icon = "minecraft:feather"
+about = "У польоті тебе менше тягне вниз: летиш далі без феєрверків."
+costs = [2, 3, 4]
+levels = [6, 18, 30]
+
+# Books above vanilla's top level, bought at the altar (altar_block on altar_base) for vanilla
+# levels. group: tools, armor or weapons; each tier of that group's altar perk adds one level,
+# up to max_extra above vanilla_max.
+
+[[book]]
+enchant = "minecraft:sharpness"
+name = "Гострота"
+vanilla_max = 5
+group = "weapons"
+max_extra = 3
+price_levels = 40
+
+[[book]]
+enchant = "minecraft:smite"
+name = "Небесна кара"
+vanilla_max = 5
+group = "weapons"
+max_extra = 3
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:bane_of_arthropods"
+name = "Бич членистоногих"
+vanilla_max = 5
+group = "weapons"
+max_extra = 3
+price_levels = 15
+
+[[book]]
+enchant = "minecraft:power"
+name = "Сила (лук)"
+vanilla_max = 5
+group = "weapons"
+max_extra = 3
+price_levels = 30
+
+[[book]]
+enchant = "minecraft:sweeping_edge"
+name = "Розмашистий удар"
+vanilla_max = 3
+group = "weapons"
+max_extra = 2
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:looting"
+name = "Видобуток"
+vanilla_max = 3
+group = "weapons"
+max_extra = 2
+price_levels = 40
+
+[[book]]
+enchant = "minecraft:protection"
+name = "Захист"
+vanilla_max = 4
+group = "armor"
+max_extra = 1
+price_levels = 30
+
+[[book]]
+enchant = "minecraft:projectile_protection"
+name = "Захист від снарядів"
+vanilla_max = 4
+group = "armor"
+max_extra = 2
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:blast_protection"
+name = "Захист від вибухів"
+vanilla_max = 4
+group = "armor"
+max_extra = 2
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:fire_protection"
+name = "Вогнезахист"
+vanilla_max = 4
+group = "armor"
+max_extra = 2
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:feather_falling"
+name = "Невагомість"
+vanilla_max = 4
+group = "armor"
+max_extra = 3
+price_levels = 20
+
+[[book]]
+enchant = "minecraft:thorns"
+name = "Шипи"
+vanilla_max = 3
+group = "armor"
+max_extra = 3
+price_levels = 25
+
+[[book]]
+enchant = "minecraft:respiration"
+name = "Дихання"
+vanilla_max = 3
+group = "armor"
+max_extra = 2
+price_levels = 15
+
+[[book]]
+enchant = "minecraft:efficiency"
+name = "Ефективність"
+vanilla_max = 5
+group = "tools"
+max_extra = 3
+price_levels = 25
+
+[[book]]
+enchant = "minecraft:unbreaking"
+name = "Міцність"
+vanilla_max = 3
+group = "tools"
+max_extra = 3
+price_levels = 15
+
+[[book]]
+enchant = "minecraft:fortune"
+name = "Удача"
+vanilla_max = 3
+group = "tools"
+max_extra = 2
+price_levels = 40
+
+[[book]]
+enchant = "minecraft:lure"
+name = "Приманка"
+vanilla_max = 3
+group = "tools"
+max_extra = 2
+price_levels = 15
+
+[[book]]
+enchant = "minecraft:luck_of_the_sea"
+name = "Морська удача"
+vanilla_max = 3
+group = "tools"
+max_extra = 2
+price_levels = 15

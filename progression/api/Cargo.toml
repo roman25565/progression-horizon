@@ -1,0 +1,17 @@
+[package]
+name = "mod-progression"
+version = "1.0.0"
+edition = "2024"
+description = "Progression for Horizon: levels, perk points, perks and the enchanting altar"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+# The launcher points this at the Horizon source it builds the game from. Every other
+# dependency must be a crate and version in Horizon's Cargo.lock.
+horizon-client = { git = "https://github.com/horizon-rust/horizon", rev = "294448014fba585f8d5d09dd8886f482493b6417" }
+log = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1.1"

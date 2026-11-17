@@ -1,0 +1,54 @@
+# Progression for Horizon: advancements (each once: vanilla, datapacks', mods') give progression
+# experience and levels (kept through death), levels give perk points, points buy perks, skills
+# and the right to buy books above vanilla's top level at the altar. Server side; the keys are the "serverkeys" client mod.
+# Build it into a dedicated-server engine with `horizon-launcher native-build ... --trust-native-code`.
+[mod]
+id = "progression"
+version = "2.6.0"
+
+# The two modules below reach the game's own player state (to set attribute modifiers), so the
+# mod is pinned to the Horizon commit it was written against.
+[compatibility]
+horizon_revision = "fdc87aecdbd116bf1e08adcd062fcbaea8c2e2ca"
+
+# The rules and every catalog hook: a trait mod.
+[api]
+path = "api"
+
+# Attribute modifiers waiting for the next tick, shared by the trait mod and the game.
+[[module]]
+id = "attrs"
+file = "crates/horizon-client/src/client_lib.rs"
+name = "progression_attrs"
+source = "attrs.rs"
+visibility = "pub"
+
+# Sets them on each player, as that player (Horizon's /attribute reaches only the one running it).
+[[module]]
+id = "glue"
+file = "crates/horizon-client/src/game.rs"
+name = "progression_glue"
+source = "apply.rs"
+
+[[injection]]
+id = "tick"
+hook = "server_tick"
+hook_version = 1
+kind = "HEAD"
+helper = "tick.rs"
+bindings = [
+  { name = "game", ty = "&mut crate::game::Game<'_>", value = "&mut *self" },
+]
+
+# A server player's minecart: "Розгін" speeds it up while forward is held, "Швидкі колії" ticks
+# it again (whole vanilla track steps, so it stays on the rails in the curves).
+[[injection]]
+id = "cart"
+target = "horizon_client::game::minecarts::Game<'_>::tick_cart_riding"
+kind = "RETURN"
+helper = "cart.rs"
+bindings = [
+  { name = "game", ty = "&mut crate::game::Game<'_>", value = "&mut *self" },
+  { name = "keys", ty = "Keys", value = "keys" },
+  { name = "value", ty = "bool", value = "$value" },
+]
