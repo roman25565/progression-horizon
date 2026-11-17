@@ -8,6 +8,7 @@
 //! held (a host call may run another of this mod's hooks before it returns).
 
 mod core;
+mod pack;
 mod remote;
 mod travel;
 
@@ -44,8 +45,9 @@ pub fn hooks() -> Box<dyn Hooks> {
     })
 }
 
-/// The resource pack with the menus' pictures (`tools/make_pack.py` makes it).
-static PACK: &[u8] = include_bytes!("../data/progression.zip");
+/// The resource pack with the menus' pictures (`tools/make_pack.py` makes it): the bytes of
+/// data/progression.zip as a Rust module, since a .hnmod carries only .rs and .toml files.
+use pack::PACK;
 /// The pack's own id for clients: a new pack with it takes the old one's place.
 const PACK_ID: u128 = 0x7072_6f67_7265_7373_696f_6e5f_6775_6931;
 
